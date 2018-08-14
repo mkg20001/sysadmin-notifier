@@ -12,9 +12,9 @@ const stateMap = {
 }
 
 const stateTypeMap = {
-  0: 'warn',
-  2: 'critical',
-  9: 'clear'
+  0: 'warning',
+  2: 'clear',
+  9: 'critical'
 }
 
 class UptimeRobot extends Source {
@@ -32,7 +32,7 @@ class UptimeRobot extends Source {
       r.last_status_change = Date.parse(r.log[0].datetime)
       return r
     })
-    let g = this.main.group('UptimeRobot')
+    let g = this.group('UptimeRobot')
     res.forEach(monitor => {
       let alert = g.alert(monitor.id).type(monitor.stateType)
         .since(monitor.last_status_change)

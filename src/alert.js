@@ -6,6 +6,12 @@ class Alert {
   constructor (config) {
     this.config = config
   }
+
+  setID (id) {
+    this.id = id
+    return this
+  }
+
   at (time) {
     this.timeField = moment(time).format('[at] ' + this.config.dateFormat)
     return this
@@ -42,4 +48,4 @@ class Alert {
   }
 }
 
-module.exporrts = Alert
+module.exports = Alert

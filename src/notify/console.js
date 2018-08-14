@@ -5,7 +5,7 @@
 const Notify = require('../notify')
 
 const typeColor = {
-  ciritical: 'red',
+  critical: 'red',
   warning: 'yellow',
   clear: 'green'
 }
@@ -15,7 +15,7 @@ class Console extends Notify {
     const color = typeColor[alert.type]
     console.log(`[${alert.timeField ? (alert.timeField.toUpperCase() + '/') : ''}${alert.type.toUpperCase()}] ${alert.title}`[color].bold)
     if (alert.body) {
-      alert.body.split('\n').map(s => ('   ' + s)[color]).forEach(console.log)
+      alert.body.split('\n').map(s => ('   ' + s)[color]).forEach((l) => console.log(l))
     }
   }
 }

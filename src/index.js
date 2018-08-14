@@ -1,5 +1,7 @@
 'use strict'
 
+require('colors')
+
 const Notifies = {
   console: require('./notify/console'),
   notifySend: require('./notify/notifySend')
@@ -13,8 +15,9 @@ const Sources = {
 class SysadminNotifier {
   constructor (config) {
     const globalConf = config.global || {}
-    this.notify = []
+    this.notifies = []
     this.sources = []
+    this.prevAlerts = {}
     for (const p in config) { // eslint-disable-line guard-for-in
       switch (true) {
         case p === 'global':
@@ -25,7 +28,7 @@ class SysadminNotifier {
             throw new TypeError('Unknown notification system ' + name)
           }
           const Notify = Notifies[name]
-          this.notify.push(new Notify(this, Object.assign(globalConf, config[p])))
+          this.notifies.push(new Notify(this, Object.assign(Object.assign({}, globalConf), config[p])))
           break
         }
         case p.startsWith('source.'): {

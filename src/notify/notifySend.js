@@ -4,7 +4,7 @@ const Notify = require('../notify')
 const cp = require('child_process')
 
 const typeIcon = {
-  ciritical: 'dialog-error',
+  critical: 'dialog-error',
   warning: 'dialog-warning',
   clear: 'flag-green'
 }
