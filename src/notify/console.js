@@ -12,6 +12,7 @@ const typeColor = {
 
 class Console extends Notify {
   notify (alert) {
+    console.log()
     const color = typeColor[alert.type]
     console.log(`[${alert.timeField ? (alert.timeField.toUpperCase() + '/') : ''}${alert.type.toUpperCase()}] ${alert.title}`[color].bold)
     if (alert.body) {
