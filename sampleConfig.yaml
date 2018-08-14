@@ -1,0 +1,17 @@
+global:
+  dateFormat: 'hh:mm:ss DD.MM.YYYY'
+  reAlert: true # whether to notify the user of old alerts
+  interval: 10000
+source.netdata:
+  interval: 1000 # global settings can be overriden per source
+  hosts:
+    - server1.tld
+    - server2.tld
+    - server3.tld:14396
+source.uptimerobot:
+  reAlert: false
+  apikey: 'SEKRET'
+notify.console: # prints to console
+  enabled: true
+notify.notifySend: # uses notify-send to send notifications
+  enabled: true
