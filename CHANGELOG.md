@@ -1,3 +1,13 @@
+<a name="1.0.4"></a>
+## [1.0.4](https://github.com/mkg20001/sysadmin-notifier/compare/v1.0.3...v1.0.4) (2018-08-14)
+
+
+### Bug Fixes
+
+* **netdata:** date of events ([d8827fe](https://github.com/mkg20001/sysadmin-notifier/commit/d8827fe))
+
+
+
 <a name="1.0.3"></a>
 ## [1.0.3](https://github.com/mkg20001/sysadmin-notifier/compare/v1.0.2...v1.0.3) (2018-08-14)
 
