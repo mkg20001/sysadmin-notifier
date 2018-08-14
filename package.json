@@ -1,6 +1,9 @@
 {
   "name": "sysadmin-notifier",
   "version": "0.0.1",
+  "bin": {
+    "sysadmin-notifier": "bin.js"
+  },
   "description": "A tiny tool to notify the sysadmin of problems/alerts from multiple sources",
   "main": "index.js",
   "scripts": {
@@ -21,5 +24,14 @@
     "js-yaml": "^3.12.0",
     "moment": "^2.22.2",
     "node-fetch": "^2.2.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkg20001/sysadmin-notifier.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mkg20001/sysadmin-notifier/issues"
+  },
+  "homepage": "https://github.com/mkg20001/sysadmin-notifier#readme"
 }
