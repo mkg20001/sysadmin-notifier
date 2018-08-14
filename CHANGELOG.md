@@ -1,3 +1,13 @@
+<a name="1.0.2"></a>
+## [1.0.2](https://github.com/mkg20001/sysadmin-notifier/compare/v1.0.1...v1.0.2) (2018-08-14)
+
+
+### Features
+
+* **summary:** don't display empty groups ([083ef68](https://github.com/mkg20001/sysadmin-notifier/commit/083ef68))
+
+
+
 <a name="1.0.1"></a>
 ## [1.0.1](https://github.com/mkg20001/sysadmin-notifier/compare/v1.0.0...v1.0.1) (2018-08-14)
 
