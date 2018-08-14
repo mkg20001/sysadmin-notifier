@@ -36,7 +36,7 @@ class Group {
     let clearable = prevAlerts.filter(pa => !alerts.filter(a => a.id === pa.id).length)
     let newPrevAlerts = alerts.filter(a => a.type !== 'clear') // don't keep clear events arround
     let sendNotify = alerts.filter(a => {
-      if (!prevAlerts.filter(pa => pa.id === a.id).length && a.type !== 'clear') { // new non-clear
+      if (!prevAlerts.filter(pa => pa.id === a.id && pa.type === a.type).length && a.type !== 'clear') { // new non-clear
         return true
       }
 

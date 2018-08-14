@@ -35,22 +35,22 @@ class Netdata extends Source {
         switch (alarm.status) {
           case 'CRITICAL':
             title = alarm.name.replace(/_/g, ' ') + ' = ' + alarm.value_string
-            body = alarm.hostname + ' - ' + alarm.chart + ' (' + alarm.family + ')\nescalated to critical: ' + alarm.info
+            body = res.hostname + ' - ' + alarm.chart + ' (' + alarm.family + ')\nescalated to critical: ' + alarm.info
             break
           case 'WARNING':
             title = alarm.name.replace(/_/g, ' ') + ' = ' + alarm.value_string
-            body = alarm.hostname + ' - ' + alarm.chart + ' (' + alarm.family + ')\nwarning: ' + alarm.info
+            body = res.hostname + ' - ' + alarm.chart + ' (' + alarm.family + ')\nwarning: ' + alarm.info
             break
           case 'CLEAR':
             title = alarm.name.replace(/_/g, ' ') + ' back to normal (' + alarm.value_string + ')'
-            body = alarm.hostname + ' - ' + alarm.chart + ' (' + alarm.family + ')\nclear: ' + alarm.info
+            body = res.hostname + ' - ' + alarm.chart + ' (' + alarm.family + ')\nclear: ' + alarm.info
             break
           default: throw new TypeError('Unknown alert type ' + alarm.status)
         }
-        alert.title(title).body(body)
+        alert.since(alarm.last_status_change).title(title).body(body)
       }
     } catch (e) {
-      g.alert('fetch_error').critical().title('Could not fetch netdata alerts for ' + host).body(e.toString() + '\nPlease check network connectivity and host uptime').since(Date.now())
+      g.alert('fetch_error').critical().title('Could not fetch netdata alerts for ' + host).body(e.toString() + '\nPlease check network connectivity and verify if the url is correct').at(Date.now())
     }
     return g
   }
