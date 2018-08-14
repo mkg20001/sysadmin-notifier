@@ -46,7 +46,7 @@ class Group {
 
       return false
     })
-    if (this.autoClear) {
+    if (this.autoClear) { // clear clearable events
       sendNotify = sendNotify.concat(clearable.map(a =>
         this.alert(a.id).type('clear').title('Cleared alert ' + JSON.stringify(a.title)).body('Alert for group ' + JSON.stringify(this.name) + ' has been cleared')
       ))

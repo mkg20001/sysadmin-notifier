@@ -32,9 +32,11 @@ process.stdin.on('data', () => {
     .forEach(group => {
       const alerts = notifier.prevAlerts[group.id]
 
-      console.log('Active alerts for group %s (%s):'.bold, group.name, alerts.length)
-      alerts.forEach(alert => consoleNotify.notify(alert))
-      console.log()
+      if (alerts.length) {
+        console.log('Active alerts for group %s (%s):'.bold, group.name, alerts.length)
+        alerts.forEach(alert => consoleNotify.notify(alert))
+        console.log()
+      }
     })
 })
 
