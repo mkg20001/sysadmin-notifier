@@ -1,6 +1,7 @@
 'use strict'
 
 const fetch = require('node-fetch')
+const Source = require('../source')
 
 /*
 
@@ -28,3 +29,5 @@ class Netdata extends Source {
     }
   }
 }
+
+module.exports = Netdata
