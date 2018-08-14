@@ -34,5 +34,8 @@
   "bugs": {
     "url": "https://github.com/mkg20001/sysadmin-notifier/issues"
   },
-  "homepage": "https://github.com/mkg20001/sysadmin-notifier#readme"
+  "homepage": "https://github.com/mkg20001/sysadmin-notifier#readme",
+  "contributors": [
+    "Maciej Krüger <mkg20001@gmail.com>"
+  ]
 }
