@@ -16,7 +16,7 @@ class Source {
     this.prevGroups = groups
   }
   async start () {
-    await this.doCheck()
+    process.nextTick(() => this.doCheck())
     this.intv = setInterval(() => this.doCheck(), this.config.interval)
   }
   async stop () {

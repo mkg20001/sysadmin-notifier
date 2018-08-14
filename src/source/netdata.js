@@ -31,6 +31,7 @@ class Netdata extends Source {
     } catch (e) {
       g.alert('fetch_error').critical().title('Could not fetch netdata alerts for ' + host).body('Please check network connectivity and host uptime').since(Date.now())
     }
+    return g
   }
 }
 
