@@ -27,7 +27,7 @@ process.stdin.on('data', () => {
   if (!started) {
     return
   }
-  console.log(notifier.sources.map(s => s.prevGroups).reduce((a, b) => a.concat(b || []), []))
+  console.log()
   notifier.sources.map(s => s.prevGroups).reduce((a, b) => a.concat(b || []), [])
     .forEach(group => {
       const alerts = notifier.prevAlerts[group.id]

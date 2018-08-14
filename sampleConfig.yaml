@@ -4,6 +4,7 @@ global:
   interval: 10000
 source.netdata:
   interval: 1000 # global settings can be overriden per source
+  timeout: 10000 # timeout for request
   hosts:
     - server1.tld
     - server2.tld

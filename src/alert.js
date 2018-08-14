@@ -13,10 +13,12 @@ class Alert {
   }
 
   at (time) {
+    this.time = time
     this.timeField = moment(time).format('[at] ' + this.config.dateFormat)
     return this
   }
   since (time) {
+    this.time = time
     this.timeField = moment(time).format('[since] ' + this.config.dateFormat)
     return this
   }
