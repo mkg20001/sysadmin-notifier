@@ -9,6 +9,7 @@ for every host in hosts:
   g = group('netdata ' + host.friendlyName)
   for every alert in host.alerts
     g.alert(alert.id).type(etc)
+
 */
 
 class Netdata extends Source {
@@ -47,7 +48,7 @@ class Netdata extends Source {
             break
           default: throw new TypeError('Unknown alert type ' + alarm.status)
         }
-        alert.since(alarm.last_status_change).title(title).body(body)
+        alert.since(alarm.last_status_change * 1000).title(title).body(body)
       }
     } catch (e) {
       g.alert('fetch_error').critical().title('Could not fetch netdata alerts for ' + host).body(e.toString() + '\nPlease check network connectivity and verify if the url is correct').at(Date.now())
