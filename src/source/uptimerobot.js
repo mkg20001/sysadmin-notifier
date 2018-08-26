@@ -32,7 +32,7 @@ class UptimeRobot extends Source {
       r.last_status_change = Date.parse(r.log[0].datetime)
       return r
     })
-    let g = this.group('UptimeRobot')
+    let g = this.group('UptimeRobot').setAutoClear(true)
     res.forEach(monitor => {
       let alert = g.alert(monitor.id).type(monitor.stateType)
         .since(monitor.last_status_change)

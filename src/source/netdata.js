@@ -22,12 +22,12 @@ class Netdata extends Source {
   async checkHost (host) {
     const g = this.group('netdata host ' + host)
     try {
-      g.setAutoClear(true)
       let res = await Promise.race([
         fetch('http://' + host + ':19999/api/v1/alarms?active'),
         new Promise((resolve, reject) => setTimeout(() => reject(new Error('Timeout')), this.config.timeout || 10 * 1000))
       ])
       res = await res.json()
+      g.setAutoClear(true)
       for (const alarmID in res.alarms) { // eslint-disable-line guard-for-in
         const alarm = res.alarms[alarmID]
         const alert = g.alert(alarm.id).type(alarm.status.toLowerCase())

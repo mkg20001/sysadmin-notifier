@@ -29,6 +29,7 @@ class Group {
   }
   setAutoClear (v) {
     this.autoClear = v
+    return this
   }
   process () {
     let alerts = Object.keys(this.alerts).map(k => this.alerts[k])
