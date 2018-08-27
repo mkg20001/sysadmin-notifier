@@ -2,6 +2,7 @@
 
 const fetch = require('node-fetch')
 const Source = require('../source')
+const glob = require('minimatch')
 
 /*
 
@@ -14,7 +15,10 @@ for every host in hosts:
 
 class Netdata extends Source {
   async init () {
-
+    this.blacklist = (this.config.blacklist || []).map(item => {
+      let [id, hostname] = item.split('@')
+      return {id, hostname}
+    })
   }
   async check () {
     return Promise.all(this.config.hosts.map(host => this.checkHost(host)))
@@ -27,28 +31,32 @@ class Netdata extends Source {
         new Promise((resolve, reject) => setTimeout(() => reject(new Error('Timeout')), this.config.timeout || 10 * 1000))
       ])
       res = await res.json()
+      let blacklist = this.blacklist.filter(item => glob(res.hostname, item.hostname)).map(item => cmp => glob(cmp, item.id))
+
       g.setAutoClear(true)
       for (const alarmID in res.alarms) { // eslint-disable-line guard-for-in
-        const alarm = res.alarms[alarmID]
-        const alert = g.alert(alarm.id).type(alarm.status.toLowerCase())
-        let title
-        let body
-        switch (alarm.status) {
-          case 'CRITICAL':
-            title = alarm.name.replace(/_/g, ' ') + ' = ' + alarm.value_string
-            body = res.hostname + ' - ' + alarm.chart + ' (' + alarm.family + ')\nescalated to critical: ' + alarm.info
-            break
-          case 'WARNING':
-            title = alarm.name.replace(/_/g, ' ') + ' = ' + alarm.value_string
-            body = res.hostname + ' - ' + alarm.chart + ' (' + alarm.family + ')\nwarning: ' + alarm.info
-            break
-          case 'CLEAR':
-            title = alarm.name.replace(/_/g, ' ') + ' back to normal (' + alarm.value_string + ')'
-            body = res.hostname + ' - ' + alarm.chart + ' (' + alarm.family + ')\nclear: ' + alarm.info
-            break
-          default: throw new TypeError('Unknown alert type ' + alarm.status)
+        if (!blacklist.filter(b => b(alarmID)).length) {
+          const alarm = res.alarms[alarmID]
+          const alert = g.alert(alarm.id).type(alarm.status.toLowerCase())
+          let title
+          let body
+          switch (alarm.status) {
+            case 'CRITICAL':
+              title = alarm.name.replace(/_/g, ' ') + ' = ' + alarm.value_string
+              body = res.hostname + ' - ' + alarm.chart + ' (' + alarm.family + ')\nescalated to critical: ' + alarm.info
+              break
+            case 'WARNING':
+              title = alarm.name.replace(/_/g, ' ') + ' = ' + alarm.value_string
+              body = res.hostname + ' - ' + alarm.chart + ' (' + alarm.family + ')\nwarning: ' + alarm.info
+              break
+            case 'CLEAR':
+              title = alarm.name.replace(/_/g, ' ') + ' back to normal (' + alarm.value_string + ')'
+              body = res.hostname + ' - ' + alarm.chart + ' (' + alarm.family + ')\nclear: ' + alarm.info
+              break
+            default: throw new TypeError('Unknown alert type ' + alarm.status)
+          }
+          alert.since(alarm.last_status_change * 1000).title(title).body(body)
         }
-        alert.since(alarm.last_status_change * 1000).title(title).body(body)
       }
     } catch (e) {
       g.alert('fetch_error').critical().title('Could not fetch netdata alerts for ' + host).body(e.toString() + '\nPlease check network connectivity and verify if the url is correct').at(Date.now())

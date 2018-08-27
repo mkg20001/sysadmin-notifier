@@ -21,6 +21,7 @@ class UptimeRobot extends Source {
   async init () {
     assert(this.config.apikey, 'Set the uptimerobot apikey!')
     this.client = new UptimeRobotClient(this.config.apikey)
+    this.blacklist = (this.config.backlist || []).map(i => parseInt(i, 10))
   }
   async check () {
     let res = await await prom(cb => this.client.getMonitors({logs: true}, cb))
@@ -31,7 +32,7 @@ class UptimeRobot extends Source {
       r.name = r.friendlyname
       r.last_status_change = Date.parse(r.log[0].datetime)
       return r
-    })
+    }).filter(r => this.blacklist.indexOf(r.id) === -1)
     let g = this.group('UptimeRobot').setAutoClear(true)
     res.forEach(monitor => {
       let alert = g.alert(monitor.id).type(monitor.stateType)
