@@ -1,3 +1,18 @@
+<a name="1.0.5"></a>
+## [1.0.5](https://github.com/mkg20001/sysadmin-notifier/compare/v1.0.4...v1.0.5) (2018-08-27)
+
+
+### Bug Fixes
+
+* **autoclear:** wrong clearing settings ([760e371](https://github.com/mkg20001/sysadmin-notifier/commit/760e371))
+
+
+### Features
+
+* Blacklisting of monitors ([491e6cb](https://github.com/mkg20001/sysadmin-notifier/commit/491e6cb))
+
+
+
 <a name="1.0.4"></a>
 ## [1.0.4](https://github.com/mkg20001/sysadmin-notifier/compare/v1.0.3...v1.0.4) (2018-08-14)
 
