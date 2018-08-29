@@ -1,9 +1,8 @@
 'use strict'
 
-const UptimeRobotClient = require('uptimerobot-client')
 const assert = require('assert')
-const prom = (fnc) => new Promise((resolve, reject) => fnc((err, res) => err ? reject(err) : resolve(res)))
-const Source = require('../source')
+const Source = require('../../source')
+const UptimeRobotClient = require('./client')
 
 const stateMap = {
   0: 'paused',
@@ -19,12 +18,20 @@ const stateTypeMap = {
 
 class UptimeRobot extends Source {
   async init () {
-    assert(this.config.apikey, 'Set the uptimerobot apikey!')
+    assert(this.config.apikey, 'Set the UptimeRobot apikey!')
     this.client = new UptimeRobotClient(this.config.apikey)
     this.blacklist = (this.config.backlist || []).map(i => parseInt(i, 10))
   }
   async check () {
-    let res = await await prom(cb => this.client.getMonitors({logs: true}, cb))
+    let res
+    try {
+      res = await this.client.getMonitors({logs: true})
+    } catch (e) {
+      let g = this.group('UptimeRobot')
+      g.alert('fetch_error').type('critical').at(Date.now()).title('Failed to fetch UptimeRobot monitors').body(e.toString())
+      return [g]
+    }
+
     res = res.monitors.monitor.map(r => {
       r[stateMap[r.status]] = true
       r.state = stateMap[r.status]
