@@ -1,3 +1,13 @@
+<a name="1.0.7"></a>
+## [1.0.7](https://github.com/mkg20001/sysadmin-notifier/compare/v1.0.6...v1.0.7) (2018-08-30)
+
+
+### Bug Fixes
+
+* **uptimerobot:** blacklist ([7b9be49](https://github.com/mkg20001/sysadmin-notifier/commit/7b9be49))
+
+
+
 <a name="1.0.6"></a>
 ## [1.0.6](https://github.com/mkg20001/sysadmin-notifier/compare/v1.0.5...v1.0.6) (2018-08-29)
 
