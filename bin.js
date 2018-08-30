@@ -4,6 +4,9 @@
 
 /* eslint-disable no-console */
 
+require('colors')
+console.log('Starting...'.bold) // putting this at the top so it can load other mods async
+
 const yaml = require('js-yaml')
 const fs = require('fs')
 const Notifier = require('.')
@@ -16,7 +19,6 @@ const notifier = new Notifier(conf)
 let started = false
 
 async function main () {
-  console.log('Starting...'.bold)
   await notifier.init()
   await notifier.start()
   started = true

@@ -37,7 +37,7 @@ class SysadminNotifier {
             throw new TypeError('Unknown source ' + name)
           }
           const Source = Sources[name]
-          this.sources.push(new Source(this, Object.assign(globalConf, config[p])))
+          this.sources.push(new Source(this, Object.assign(Object.assign({}, globalConf), config[p])))
           break
         }
         default: throw new TypeError('Unknown config option ' + p)

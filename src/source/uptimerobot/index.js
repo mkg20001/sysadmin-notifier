@@ -20,7 +20,7 @@ class UptimeRobot extends Source {
   async init () {
     assert(this.config.apikey, 'Set the UptimeRobot apikey!')
     this.client = new UptimeRobotClient(this.config.apikey)
-    this.blacklist = (this.config.backlist || []).map(i => parseInt(i, 10))
+    this.blacklist = (this.config.blacklist || []).map(i => String(i))
   }
   async check () {
     let res
