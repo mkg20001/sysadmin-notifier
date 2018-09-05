@@ -43,6 +43,10 @@ class UptimeRobotClient {
         throw e
       }
 
+      if (res.startsWith('An error occurred')) {
+        throw new Error('UptimeRobot Internal Server Error')
+      }
+
       if (res.startsWith('<!DOCTYPE html>')) { // cloudflare error page or something else
         throw new Error('Cloudflare Timeout or other error')
       }
